@@ -3,11 +3,11 @@ import styles from './GameBoard.module.css';
 import {Cell} from "../types";
 
 export type IGameBoard = {
-    onClick: (i: number) => void,
+    onClickCell: (i: number) => void,
     cells: Cell[]
 }
 
-const GameBoard: React.FC<IGameBoard> = ({cells, onClick}) => {
+const GameBoard: React.FC<IGameBoard> = ({cells, onClickCell}) => {
     return (
         <div data-testid='Gameboard' className={styles.board}>
             {cells.map(cell =>
@@ -15,7 +15,7 @@ const GameBoard: React.FC<IGameBoard> = ({cells, onClick}) => {
                     key={cell.index}
                     className={[styles.cell, cell.alive ? styles.cell_alive : styles.cell_dead].join(' ')}
                     data-testid="cell"
-                    onClick={() => onClick(cell.index)}
+                    onClick={() => onClickCell(cell.index)}
                 />
             )}
         </div>
