@@ -1,0 +1,17 @@
+.board {
+    margin: auto;
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cell {
+    width: 15px;
+    height: 15px;
+    border: 1px solid black;
+}
+
+.cell_dead {}
+.cell_alive {
+    background-color: red;
+}

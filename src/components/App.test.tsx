@@ -3,15 +3,34 @@ import App from "./App";
 import React from "react";
 
 describe(`App`, () => {
-    test(`it should show 'Game of Life' as a heading`, () => {
+    it(`it should show 'Game of Life' as a heading`, () => {
         const {getByText} = render(<App/>);
         expect(getByText('Game of Life')).toBeInTheDocument()
     });
 
-    test(`it should render the Gameboard, options and generation counter`, () => {
+    it(`it should render the Gameboard, options and generation counter`, () => {
         const {getByTestId} = render(<App/>);
         expect(getByTestId('Gameboard')).toBeInTheDocument();
         expect(getByTestId('Options')).toBeInTheDocument();
         expect(getByTestId('GenerationCounter')).toBeInTheDocument();
+    });
+
+    describe('initial state', () => {
+        it('should render 20 x 20 dead cells', () => {
+            const {getAllByTestId} = render(<App/>);
+            const cells = getAllByTestId('cell');
+            expect(cells.length).toEqual(20 * 20);
+            cells.forEach(cell => expect(cell).toHaveClass('cell cell_dead'))
+        });
+
+        it(`should toggle a cell from dead to alive and back on click`, () => {
+            const {getAllByTestId} = render(<App/>);
+            const cell = getAllByTestId('cell')[0];
+            expect(cell).toHaveClass('cell cell_dead');
+            cell.click();
+            expect(cell).toHaveClass('cell cell_alive');
+            cell.click();
+            expect(cell).toHaveClass('cell cell_dead');
+        });
     });
 });
