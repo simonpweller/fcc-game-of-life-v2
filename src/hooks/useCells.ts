@@ -6,6 +6,7 @@ type signature = () => {
     toggleCell: (i: number) => void,
     generation: number,
     clear: () => void,
+    randomize: () => void,
     step: () => void,
 }
 
@@ -55,10 +56,15 @@ export const useCells: signature = () => {
         setGeneration(generation + 1);
     };
 
+    const randomize = () => {
+        setCells(cells.map(cell => ({...cell, alive: Math.random() > 0.5})));
+        setGeneration(0);
+    };
+
     const clear = () => {
         setCells(createInitialState());
         setGeneration(0);
     };
 
-    return {cells, toggleCell, generation, clear, step}
+    return {cells, toggleCell, generation, clear, randomize, step}
 };

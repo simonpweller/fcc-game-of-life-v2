@@ -126,4 +126,14 @@ describe(`App`, () => {
             expect(generationCounter.textContent).toBe('Generation 0');
         });
     });
+
+    describe(`randomizing the board`, () => {
+        it(`should set some cells to alive and some to dead`, () => {
+            const {getAllByTestId, getByText} = render(<App/>);
+            const cells = getAllByTestId('cell');
+            getByText('Randomize').click();
+            expect(cells.some(cell => cell.className === 'cell cell_alive')).toBe(true);
+            expect(cells.some(cell => cell.className === 'cell cell_dead')).toBe(true);
+        });
+    });
 });
