@@ -30,7 +30,7 @@ h1 {
     background-color: red;
 }
 
-.options {
+.options, .generations {
     width: 300px;
     margin: 20px auto;
     display: flex;
