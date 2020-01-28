@@ -1,7 +1,7 @@
 import React from 'react';
 import {Cell} from '../types';
 
-export type IGameBoard = {
+type IGameBoard = {
     onClickCell: (i: number) => void,
     cells: Cell[]
 }
