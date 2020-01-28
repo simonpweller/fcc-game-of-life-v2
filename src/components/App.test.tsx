@@ -69,6 +69,18 @@ describe(`App`, () => {
                 getByText('Step').click();
                 expect(cells[getIndex(1, 10)]).toHaveClass('cell cell_alive');
             });
+
+            test(`Any live cell with more than three live neighbours dies, as if by overpopulation.`, () => {
+                const {getAllByTestId, getByText} = render(<App/>);
+                const cells = getAllByTestId('cell');
+                cells[getIndex(1, 9)].click();
+                cells[getIndex(1, 10)].click();
+                cells[getIndex(1, 11)].click();
+                cells[getIndex(0, 10)].click();
+                cells[getIndex(2, 10)].click();
+                getByText('Step').click();
+                expect(cells[getIndex(1, 10)]).toHaveClass('cell cell_dead');
+            });
         });
 
         function getIndex(row: number, col: number) {
