@@ -31,12 +31,12 @@ export const useCells: signature = () => {
         const col = index % WIDTH;
         const row = Math.floor(index / WIDTH);
 
-        const cols = col === 0 ? [0, 1] : col + 1 < WIDTH ? [col - 1, col, col + 1] : [col - 1, col];
-        const rows = row === 0 ? [0, 1] : row + 1 < HEIGHT ? [row - 1, row, row + 1] : [row - 1, row];
+        const neighbouringRows = row === 0 ? [0, 1] : row + 1 < HEIGHT ? [row - 1, row, row + 1] : [row - 1, row];
+        const neighbouringCols = col === 0 ? [0, 1] : col + 1 < WIDTH ? [col - 1, col, col + 1] : [col - 1, col];
 
         const neighbours: number[] = [];
-        rows.forEach(r => {
-            cols.forEach( c => {
+        neighbouringRows.forEach(r => {
+            neighbouringCols.forEach( c => {
                 const neighborIndex = c + r * WIDTH;
                 if(neighborIndex !== index) {
                     neighbours.push(neighborIndex);
