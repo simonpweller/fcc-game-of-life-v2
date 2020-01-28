@@ -50,7 +50,7 @@ export const useCells: signature = () => {
 
     const step = () => {
         const nextCells = cells
-            .map((cell, index) => ({...cell, aliveNext: aliveNeighbours(cells, index) >= 2 && aliveNeighbours(cells, index) <= 3}))
+            .map((cell, index) => ({...cell, aliveNext: aliveNeighbours(cells, index) === 3 || (cell.alive && aliveNeighbours(cells, index) === 2)}))
             .map(cell => ({...cell, alive: cell.aliveNext}));
 
         setCells(nextCells);

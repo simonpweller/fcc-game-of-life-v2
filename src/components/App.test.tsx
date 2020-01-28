@@ -81,6 +81,25 @@ describe(`App`, () => {
                 getByText('Step').click();
                 expect(cells[getIndex(1, 10)]).toHaveClass('cell cell_dead');
             });
+
+            test(`Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.`, () => {
+                const {getAllByTestId, getByText} = render(<App/>);
+                const cells = getAllByTestId('cell');
+                cells[getIndex(1, 9)].click();
+                cells[getIndex(1, 11)].click();
+                cells[getIndex(0, 10)].click();
+                getByText('Step').click();
+                expect(cells[getIndex(1, 10)]).toHaveClass('cell cell_alive');
+            });
+
+            test(`All other dead cells stay dead`, () => {
+                const {getAllByTestId, getByText} = render(<App/>);
+                const cells = getAllByTestId('cell');
+                cells[getIndex(1, 9)].click();
+                cells[getIndex(1, 11)].click();
+                getByText('Step').click();
+                expect(cells[getIndex(1, 10)]).toHaveClass('cell cell_dead');
+            });
         });
 
         function getIndex(row: number, col: number) {
