@@ -53,11 +53,21 @@ describe(`App`, () => {
         describe(`state transitions`, () => {
             test(`Any live cell with fewer than two live neighbours dies, as if by underpopulation.`, () => {
                 const {getAllByTestId, getByText} = render(<App/>);
-                const cell = getAllByTestId('cell')[0];
-                cell.click();
-                expect(cell).toHaveClass('cell cell_alive');
+                const cells = getAllByTestId('cell');
+                cells[0].click();
+                expect(cells[0]).toHaveClass('cell cell_alive');
                 getByText('Step').click();
-                expect(cell).toHaveClass('cell cell_dead');
+                expect(cells[0]).toHaveClass('cell cell_dead');
+            });
+
+            test(`Any live cell with two or three live neighbours lives on to the next generation.`, () => {
+                const {getAllByTestId, getByText} = render(<App/>);
+                const cells = getAllByTestId('cell');
+                cells[0].click();
+                cells[20].click();
+                cells[21].click();
+                getByText('Step').click();
+                expect(cells[0]).toHaveClass('cell cell_alive');
             });
         });
     });
