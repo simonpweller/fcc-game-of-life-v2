@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {Cell} from "../types";
+import useInterval from "./useInterval";
 
 type signature = () => {
     cells: Cell[],
@@ -8,6 +9,8 @@ type signature = () => {
     clear: () => void,
     randomize: () => void,
     step: () => void,
+    startStop: () => void,
+    started: boolean,
 }
 
 export const useCells: signature = () => {
@@ -19,6 +22,7 @@ export const useCells: signature = () => {
         alive: false,
     }));
 
+    const [started, setStarted] = useState(false);
     const [cells, setCells] = useState(createInitialState());
     const [generation, setGeneration] = useState(0);
 
@@ -66,5 +70,9 @@ export const useCells: signature = () => {
         setGeneration(0);
     };
 
-    return {cells, toggleCell, generation, clear, randomize, step}
+    const startStop = () => setStarted(!started);
+
+    useInterval(step, started ? 100 : null);
+
+    return {cells, toggleCell, generation, clear, randomize, step, startStop, started}
 };

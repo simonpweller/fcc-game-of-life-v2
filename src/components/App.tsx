@@ -5,13 +5,13 @@ import GenerationCounter from "./GenerationCounter";
 import {useCells} from "../hooks/useCells";
 
 const App: React.FC = () => {
-    const {cells, toggleCell, generation, step, randomize, clear} = useCells();
+    const {cells, toggleCell, generation, step, startStop, started, randomize, clear} = useCells();
 
     return (
         <>
             <h1>Game of Life</h1>
             <GameBoard cells={cells} onClickCell={toggleCell}/>
-            <Options clear={clear} step={step} randomize={randomize}/>
+            <Options clear={clear} step={step} startStop={startStop} randomize={randomize} started={started}/>
             <GenerationCounter generation={generation}/>
         </>
     );
