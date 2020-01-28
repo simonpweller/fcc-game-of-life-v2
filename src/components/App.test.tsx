@@ -22,6 +22,11 @@ describe(`App`, () => {
             expect(cells.length).toEqual(20 * 20);
             cells.forEach(cell => expect(cell).toHaveClass('cell cell_dead'))
         });
+
+        it(`should start with a GenerationCounter of 0`, () => {
+            const {getByTestId} = render(<App/>);
+            expect(getByTestId('GenerationCounter').textContent).toBe('Generation 0')
+        });
     });
 
     describe(`clicking a cell`, () => {

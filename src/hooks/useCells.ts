@@ -5,6 +5,7 @@ export const useCells: () => {cells: Cell[], toggleCell: (i: number) => void, cl
     const createInitialState = () => Array.from({length: 20 * 20}, (v, i) => ({alive: false, index: i}));
 
     const [cells, setCells] = useState(createInitialState());
+    // const [generation, setGeneration] = useState(0);
 
     const toggleCell = (i: number) => {
         const nextCells = cells.slice();
