@@ -54,22 +54,26 @@ describe(`App`, () => {
             test(`Any live cell with fewer than two live neighbours dies, as if by underpopulation.`, () => {
                 const {getAllByTestId, getByText} = render(<App/>);
                 const cells = getAllByTestId('cell');
-                cells[0].click();
-                expect(cells[0]).toHaveClass('cell cell_alive');
+                cells[getIndex(1, 10)].click();
+                expect(cells[getIndex(1, 10)]).toHaveClass('cell cell_alive');
                 getByText('Step').click();
-                expect(cells[0]).toHaveClass('cell cell_dead');
+                expect(cells[getIndex(1, 10)]).toHaveClass('cell cell_dead');
             });
 
             test(`Any live cell with two or three live neighbours lives on to the next generation.`, () => {
                 const {getAllByTestId, getByText} = render(<App/>);
                 const cells = getAllByTestId('cell');
-                cells[0].click();
-                cells[20].click();
-                cells[21].click();
+                cells[getIndex(1, 9)].click();
+                cells[getIndex(1, 10)].click();
+                cells[getIndex(1, 11)].click();
                 getByText('Step').click();
-                expect(cells[0]).toHaveClass('cell cell_alive');
+                expect(cells[getIndex(1, 10)]).toHaveClass('cell cell_alive');
             });
         });
+
+        function getIndex(row: number, col: number) {
+            return row * 20 + col;
+        }
     });
 
     describe(`clearing the board`, () => {
