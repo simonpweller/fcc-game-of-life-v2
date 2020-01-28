@@ -1,9 +1,13 @@
 import React from 'react';
 
-const GenerationCounter: React.FC = () => {
+type IGenerationCounter = {
+    generation: number,
+}
+
+const GenerationCounter: React.FC<IGenerationCounter> = ({generation}) => {
     return (
         <div data-testid='GenerationCounter' className='generations'>
-            Generation 0
+            Generation {generation}
         </div>
     );
 };

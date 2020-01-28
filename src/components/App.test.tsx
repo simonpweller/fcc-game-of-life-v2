@@ -41,14 +41,33 @@ describe(`App`, () => {
         });
     });
 
+    describe(`stepping forward a generation`, () => {
+        it(`should increase the GenerationCounter`, () => {
+            const {getByTestId, getByText} = render(<App/>);
+            const generationCounter = getByTestId('GenerationCounter');
+            expect(generationCounter.textContent).toBe('Generation 0');
+            getByText('Step').click();
+            expect(generationCounter.textContent).toBe('Generation 1');
+        });
+    });
+
     describe(`clearing the board`, () => {
-        test(`clicking the 'Clear' button should clear the board`, () => {
+        it(`should clear the board`, () => {
             const {getAllByTestId, getByText} = render(<App/>);
             const cell = getAllByTestId('cell')[20];
             cell.click();
             expect(cell).toHaveClass('cell cell_alive');
             getByText('Clear').click();
             expect(cell).toHaveClass('cell cell_dead');
+        });
+
+        it(`should reset the generation counter`, () => {
+            const {getByTestId, getByText} = render(<App/>);
+            const generationCounter = getByTestId('GenerationCounter');
+            getByText('Step').click();
+            expect(generationCounter.textContent).toBe('Generation 1');
+            getByText('Clear').click();
+            expect(generationCounter.textContent).toBe('Generation 0');
         });
     });
 });
