@@ -22,14 +22,27 @@ describe(`App`, () => {
             expect(cells.length).toEqual(20 * 20);
             cells.forEach(cell => expect(cell).toHaveClass('cell cell_dead'))
         });
+    });
 
-        it(`should toggle a cell from dead to alive and back on click`, () => {
+    describe(`clicking a cell`, () => {
+        it(`should toggle a cell from dead to alive and back`, () => {
             const {getAllByTestId} = render(<App/>);
             const cell = getAllByTestId('cell')[0];
             expect(cell).toHaveClass('cell cell_dead');
             cell.click();
             expect(cell).toHaveClass('cell cell_alive');
             cell.click();
+            expect(cell).toHaveClass('cell cell_dead');
+        });
+    });
+
+    describe(`clearing the board`, () => {
+        test(`clicking the 'Clear' button should clear the board`, () => {
+            const {getAllByTestId, getByText} = render(<App/>);
+            const cell = getAllByTestId('cell')[20];
+            cell.click();
+            expect(cell).toHaveClass('cell cell_alive');
+            getByText('Clear').click();
             expect(cell).toHaveClass('cell cell_dead');
         });
     });

@@ -1,8 +1,10 @@
 import {useState} from "react";
 import {Cell} from "../types";
 
-export const useCells: () => {cells: Cell[], toggleCell: (i: number) => void} = () => {
-    const [cells, setCells] = useState(Array.from({length: 20 * 20}, (v, i) => ({alive: false, index: i})));
+export const useCells: () => {cells: Cell[], toggleCell: (i: number) => void, clear: () => void} = () => {
+    const createInitialState = () => Array.from({length: 20 * 20}, (v, i) => ({alive: false, index: i}));
+
+    const [cells, setCells] = useState(createInitialState());
 
     const toggleCell = (i: number) => {
         const nextCells = cells.slice();
@@ -10,5 +12,7 @@ export const useCells: () => {cells: Cell[], toggleCell: (i: number) => void} = 
         setCells(nextCells);
     };
 
-    return {cells, toggleCell}
+    const clear = () => setCells(createInitialState());
+
+    return {cells, toggleCell, clear}
 };

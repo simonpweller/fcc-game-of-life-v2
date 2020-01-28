@@ -1,8 +1,14 @@
 import React from 'react';
 
-const Options: React.FC = () => {
+type IOptions = {
+    clear: () => void,
+}
+
+const Options: React.FC<IOptions> = ({clear}) => {
     return (
-        <div data-testid='Options'/>
+        <div data-testid='Options'>
+            <button onClick={clear}>Clear</button>
+        </div>
     );
 };
 
