@@ -49,6 +49,17 @@ describe(`App`, () => {
             getByText('Step').click();
             expect(generationCounter.textContent).toBe('Generation 1');
         });
+
+        describe(`state transitions`, () => {
+            test(`Any live cell with fewer than two live neighbours dies, as if by underpopulation.`, () => {
+                const {getAllByTestId, getByText} = render(<App/>);
+                const cell = getAllByTestId('cell')[0];
+                cell.click();
+                expect(cell).toHaveClass('cell cell_alive');
+                getByText('Step').click();
+                expect(cell).toHaveClass('cell cell_dead');
+            });
+        });
     });
 
     describe(`clearing the board`, () => {

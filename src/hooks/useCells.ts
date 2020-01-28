@@ -10,7 +10,11 @@ type signature = () => {
 }
 
 export const useCells: signature = () => {
-    const createInitialState = () => Array.from({length: 20 * 20}, (v, i) => ({alive: false, index: i}));
+    const createInitialState = () => Array.from({length: 20 * 20}, (v, i) => ({
+        index: i,
+        alive: false,
+        aliveNext: false,
+    }));
 
     const [cells, setCells] = useState(createInitialState());
     const [generation, setGeneration] = useState(0);
@@ -21,7 +25,13 @@ export const useCells: signature = () => {
         setCells(nextCells);
     };
 
-    const step = () => setGeneration(generation + 1);
+    const step = () => {
+        const nextCells = cells
+            .map(cell => ({...cell, alive: false}));
+
+        setCells(nextCells);
+        setGeneration(generation + 1);
+    };
 
     const clear = () => {
         setCells(createInitialState());
