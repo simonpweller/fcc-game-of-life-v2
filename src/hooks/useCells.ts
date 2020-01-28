@@ -16,7 +16,6 @@ export const useCells: signature = () => {
     const createInitialState = () => Array.from({length: WIDTH * HEIGHT}, (v, i) => ({
         index: i,
         alive: false,
-        aliveNext: false,
     }));
 
     const [cells, setCells] = useState(createInitialState());
@@ -49,11 +48,10 @@ export const useCells: signature = () => {
     };
 
     const step = () => {
-        const nextCells = cells
-            .map((cell, index) => ({...cell, aliveNext: aliveNeighbours(cells, index) === 3 || (cell.alive && aliveNeighbours(cells, index) === 2)}))
-            .map(cell => ({...cell, alive: cell.aliveNext}));
+        const aliveNext = cells
+            .map((cell, index) => aliveNeighbours(cells, index) === 3 || (cell.alive && aliveNeighbours(cells, index) === 2));
 
-        setCells(nextCells);
+        setCells(cells.map((cell, index) => ({...cell, alive: aliveNext[index]})));
         setGeneration(generation + 1);
     };
 
